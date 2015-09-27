@@ -1,0 +1,25 @@
+pollutantmean = function(directory, pollutant, id = 1:332) {
+	fullDirectoryName = paste("/home/vignesh/datasciencecoursera/", directory, sep = '')	
+	setwd(fullDirectoryName)	
+	pollutantAmountTotal = 0
+	nonNAcountTotal = 0		
+	for(i in id){
+		
+		if(i < 10){
+			filename = paste("00", i, ".csv", sep = '')
+		}else if(i < 100){
+			filename = paste("0", i, ".csv", sep = '')
+		}else{
+			filename = paste(i, ".csv", sep = '')
+		}	
+		pollutantData = read.csv(filename)
+		pollutantAmount = sum(pollutantData[[pollutant]], na.rm = TRUE)
+		nonNAcount = sum(!is.na(pollutantData[[pollutant]]))
+		pollutantAmountTotal = pollutantAmountTotal + pollutantAmount
+		nonNAcountTotal = nonNAcountTotal + nonNAcount
+	} 
+	pollutantAmountTotal/nonNAcountTotal
+}
+
+
+
